@@ -1,0 +1,89 @@
+#include<iostream>
+#include<string>
+#include<unordered_map>
+using namespace std;
+
+
+void  showCalender( int startDay , unordered_map<int ,string> eve)
+{
+    
+     cout<<"                             D E C E M B E R"<<endl;
+     cout<<"+----------+----------+----------+----------+----------+----------+----------+"<<endl;
+     cout<<"|  Sunday  |  Monday  | Tuesday  | Wednesday| Thursday |  Friday  | Saturday |"<<endl;
+     cout<<"+----------+----------+----------+----------+----------+----------+----------+"<<endl;
+    
+
+    
+     int weekD = startDay % 7;
+
+     int line1 = 1 - weekD;
+     int line2 = 1 - weekD;
+     int line3 = 1 - weekD;
+     
+    for(int week =1;week<=5;week++)
+    {
+       
+        for(int dayOfweek = 1 ; dayOfweek <= 7 ; dayOfweek ++){
+            if(line1 <= 0 || line1>31)
+            cout<<"|          ";
+            else if(line1 <=9)
+            cout<<"| "<<line1<<"        ";
+            else 
+            cout<<"|"<<line1<<"        ";
+            line1++;
+        }
+        cout<<"|\n";
+        
+        for(int dayOfweek = 1 ; dayOfweek <= 7 ; dayOfweek ++){
+            
+            if (eve.find(line2) != eve.end())
+            {
+                string s = eve[line2];
+                cout<<"|"<<s;
+                for(int space = 1 ; space <= (10-s.length()) ;space++)
+                cout<<" ";
+            }
+            else if(line2 == 25) 
+            cout<<"|Christmas ";
+            else if(line2 == 31)
+            cout<<"| New Years"; 
+            else
+            cout<<"|          ";
+            line2++;
+           
+        }
+        cout<<"|\n";
+        
+        for(int dayOfweek = 1 ; dayOfweek <= 7 ; dayOfweek ++){
+            if(line3 == 31)
+            cout<<"|    Eve   ";
+            else
+            cout<<"|          ";
+            line3++;
+            
+        }
+        cout<<"|\n";
+        cout<<"+----------+----------+----------+----------+----------+----------+----------+"<<endl;
+
+    }
+    
+}
+
+int main() {
+    
+    unordered_map<int ,string> eve;
+    
+    for(int i = 1 ; i <=5 ; i++)
+    {
+        int day ;
+        string details ;
+        cout << "Enter event: " <<  "\n";
+        cin>>day;
+        cin>>details;
+        eve[day] = details;
+    }
+    
+    int startDay = 2;
+     
+    showCalender(startDay, eve);
+}
